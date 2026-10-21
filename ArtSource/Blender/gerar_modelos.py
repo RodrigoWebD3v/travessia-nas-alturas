@@ -198,11 +198,6 @@ def cap_cell():
     return np.where(star & d[..., None], hex_rgb("#FFD447"), img)
 
 
-def spikes_cell():
-    u, v = cell_coords()
-    return radial("#E8EEF2", "#7D8A96")
-
-
 def slime_cell():
     img = solid("#8E4FD0", 0.05, 4)
     for _ in range(25):
@@ -773,17 +768,6 @@ def model_gosma():
     return assemble("Gosma", parts, img)
 
 
-def model_espinhos():
-    cells = {"metal": (0, spikes_cell), "base": (1, lambda: stripes("#E75050", "#3A2A1E", 4, vertical=True))}
-    img = build_atlas("T_Espinhos", cells)
-    parts = [finish_part(cube("Base", (1.0, 1.0, 0.12), (0, 0, 0.06)), 1, bevel=0.03)]
-    for ix in range(3):
-        for iy in range(3):
-            parts.append(finish_part(cyl("Ponta", 0.13, 0.45, (-0.32 + ix * 0.32, -0.32 + iy * 0.32, 0.34),
-                                         r2=0.0, verts=8), 0))
-    return assemble("Espinhos", parts, img)
-
-
 def model_bandeira():
     cells = {"mastro": (0, lambda: solid("#E8EEF2", 0.02)), "pano": (1, flag_cloth),
              "base": (2, lambda: bricks("#7E7568", "#B9AE98", "#A79A82", rows=2, cols=3)),
@@ -832,7 +816,7 @@ def main():
     save_tile("T_Pedra", stone_tile())
 
     builders = [model_bastao, model_moeda, model_coracao, model_bota,
-                model_arvore, model_torre, model_relogio, model_gosma, model_espinhos, model_bandeira]
+                model_arvore, model_torre, model_relogio, model_gosma, model_bandeira]
     objs = []
     for b in builders:
         o = b()

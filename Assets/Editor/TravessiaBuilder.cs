@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -20,7 +20,7 @@ public static class TravessiaBuilder
     const string SceneDir = "Assets/Scenes";
 
     static readonly string[] Models =
-        { "Equilibrista", "Bastao", "Moeda", "Coracao", "Bota", "Arvore", "Torre", "Relogio", "Gosma", "Espinhos", "Bandeira", "Passaro" };
+        { "Equilibrista", "Bastao", "Moeda", "Coracao", "Bota", "Arvore", "Torre", "Relogio", "Gosma", "Bandeira", "Passaro" };
 
     static Font font;
 
@@ -290,16 +290,6 @@ public static class TravessiaBuilder
         MakeCollectible("Bota", CollectibleType.Boot, "Bota", 1.1f, new Vector3(0f, -0.3f, 0f), 0.5f);
         MakeCollectible("Relogio", CollectibleType.Clock, "Relogio", 1.1f, Vector3.zero, 0.5f);
         MakeCollectible("Gosma", CollectibleType.Slime, "Gosma", 1.2f, Vector3.zero, 0.55f, groundItem: true);
-
-        var spikes = new GameObject("Espinhos");
-        var box = spikes.AddComponent<BoxCollider>();
-        box.isTrigger = true;
-        box.center = new Vector3(0f, 0.35f, 0f);
-        box.size = new Vector3(1.1f, 0.7f, 1.1f);
-        var sc = spikes.AddComponent<Collectible>();
-        sc.type = CollectibleType.Spikes;
-        sc.visual = InstModel("Espinhos", spikes.transform, Vector3.zero).transform;
-        SavePrefab(spikes, "Espinhos");
 
         // ---------- bandeira de chegada
         var flag = new GameObject("BandeiraChegada");
@@ -667,7 +657,6 @@ public static class TravessiaBuilder
         Place("Moeda", ctx.items, new Vector3(-1.5f, 1.3f, 35.8f));
         Place("Moeda", ctx.items, new Vector3(1.5f, 1.3f, 35.8f));
         Place("Moeda", ctx.items, new Vector3(0f, 1.3f, 37.8f));
-        Place("Espinhos", ctx.items, new Vector3(-2.6f, 0.4f, 37.6f));
         Place("Gosma", ctx.items, new Vector3(2.6f, 0.4f, 37.4f));
         Place("Bota", ctx.items, new Vector3(3.1f, 1.3f, 39.4f));
         Place("BandeiraChegada", ctx.root, new Vector3(0f, 0.4f, 39.6f));
@@ -700,10 +689,9 @@ public static class TravessiaBuilder
 
         var cordaA = Rope(ctx, "CordaA", new Vector3(0f, 0f, 2.5f), new Vector3(0f, 0f, 14.5f), 0.45f, 0.2f, 0.4f, 0.6f, 0.8f);
 
-        // Plataforma com espinhos e gosma nas laterais (centro livre)
+        // Plataforma com gosma na lateral (centro livre)
         Platform(ctx, "T1_Perigos", new Vector3(0f, 0f, 17f), new Vector2(5f, 5f));
         CheckpointAt(ctx, new Vector3(0f, 0f, 15.5f), 5f);
-        Place("Espinhos", ctx.items, new Vector3(1.6f, 0f, 17.6f));
         Place("Gosma", ctx.items, new Vector3(-1.6f, 0f, 18.4f));
         Place("Moeda", ctx.items, new Vector3(0f, 0.9f, 17.4f));
         Place("Moeda", ctx.items, new Vector3(0f, 0.9f, 18.9f));
@@ -722,7 +710,6 @@ public static class TravessiaBuilder
         Platform(ctx, "T3_Checkpoint", new Vector3(0f, 1.3f, 41f), new Vector2(5f, 5f));
         CheckpointAt(ctx, new Vector3(0f, 1.3f, 39.6f), 5f);
         Place("Bota", ctx.items, new Vector3(1.6f, 2.2f, 41.6f));
-        Place("Espinhos", ctx.items, new Vector3(-1.6f, 1.3f, 42.4f));
         Place("Moeda", ctx.items, new Vector3(0f, 2.2f, 42.2f));
 
         // Travessia final
